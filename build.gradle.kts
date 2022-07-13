@@ -84,18 +84,18 @@ publishing {
         maven {
             url = uri("$buildDir/repo")
         }
-        if (System.getenv("REPO_URL") != null) {
-            maven {
-                url = uri(System.getenv("REPO_URL"))
-                credentials {
-                    username = System.getenv("REPO_USERNAME")
-                    password = System.getenv("REPO_PASSWORD")
-                }
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/blurite/openosrs-injector")
+            credentials {
+                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
             }
         }
+
     }
     publications {
-        register("mavenJava", MavenPublication::class) {
+        register("gpr", MavenPublication::class) {
             from(components["java"])
             artifact(sourcesJar.get())
         }
