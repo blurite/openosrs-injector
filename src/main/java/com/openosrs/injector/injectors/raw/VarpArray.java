@@ -1,8 +1,8 @@
 package com.openosrs.injector.injectors.raw;
 
+import com.openosrs.injector.InjectUtil;
 import com.openosrs.injector.injection.InjectData;
 import com.openosrs.injector.injectors.AbstractInjector;
-import net.runelite.asm.ClassFile;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.Instructions;
 import net.runelite.asm.Method;
@@ -24,8 +24,9 @@ public class VarpArray extends AbstractInjector {
     @Override
     public void inject() {
         logger.lifecycle("Attempting to replace varp array.");
-        ClassFile varps = inject.getDeobfuscated().findClass("Varps");
-        Method method = varps.findStaticMethod("<clinit>").getCode().getMethod();
+        final Method method = InjectUtil.findMethod(inject, "<clinit>", "Varps");
+
+
         Instructions ins = method.getCode().getInstructions();
         for (Instruction i : ins.getInstructions()) {
             if (i instanceof NewArray) {
