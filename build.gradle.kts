@@ -16,7 +16,7 @@ plugins {
 
 val oprsver = "4.31.1"
 
-group = "com.openosrs"
+group = "io.blurite"
 version = "2.0.2"
 
 repositories {
@@ -25,7 +25,6 @@ repositories {
     maven {
         url = uri("https://repo.runelite.net")
         url = uri("https://raw.githubusercontent.com/open-osrs/hosting/master")
-        url = uri("https://repo.openosrs.com/repository/maven")
     }
 }
 
@@ -53,7 +52,7 @@ dependencies {
 gradlePlugin {
     plugins {
         create("injectorPlugin") {
-            id = "com.openosrs.injector"
+            id = "io.blurite.injector"
             implementationClass = "com.openosrs.injector.InjectPlugin"
         }
     }
